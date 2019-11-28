@@ -33,6 +33,13 @@ modules:
       disk-quota: 256M
     requires:
       - name: SAP_SALES-db-hdi-container
+        properties:
+          TARGET_CONTAINER: '~{hdi-container-name}'
+      - name: hdi_user_db
+        group: SERVICE_REPLACEMENTS
+        properties:
+          key: hdi-user-service
+          service: ~(user-container-name)
   - name: SAP_SALES-srv
     type: nodejs
     path: srv
@@ -52,6 +59,13 @@ modules:
       builder: grunt
       supported-platforms: []
       build-result: dist
+  - name: user_db
+    type: hdb
+    path: user_db
+    requires:
+      - name: hdi_user_db
+        properties:
+          TARGET_CONTAINER: '~{user-container-name}'
 resources:
   - name: SAP_SALES_html5_repo_runtime
     parameters:
@@ -78,3 +92,10 @@ resources:
       service-plan: lite
       service: destination
     type: org.cloudfoundry.managed-service
+  - name: hdi_user_db
+    parameters:
+      config:
+        schema: user_db
+    properties:
+      user-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container
