@@ -21,4 +21,4 @@ VIEW "PurchaseOrder.ItemView" COMMENT 'Purchase Order Item View' (
 	 "Item_$0"."QUANTITYUNIT" AS "QuantityUnit" ,
 	 "Item_$0"."DELIVERYDATE" AS "DeliveryDate1"
 FROM "PurchaseOrder.Item" AS "Item_$0" 
-WITH READ ONLY STRUCTURED PRIVILEGE CHECK
+WITH READ ONLY STRUCTURED PRIVILEGE CHECK 
