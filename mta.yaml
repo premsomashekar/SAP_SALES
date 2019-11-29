@@ -39,7 +39,7 @@ modules:
         group: SERVICE_REPLACEMENTS
         properties:
           key: hdi-user-service
-          service: ~(user-container-name)
+          service: '~{user-container-name}'
   - name: SAP_SALES-srv
     type: nodejs
     path: srv
