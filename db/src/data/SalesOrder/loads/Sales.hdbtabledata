@@ -2,16 +2,16 @@
     "format_version": 1,
     "imports": [
         {
-            "target_table": "PO.Header",
+            "target_table": "SO.Header",
             "source_data": {
                 "data_type": "CSV",
-                "file_name": "purchaseOrder.csv",
+                "file_name": "salesOrder.csv",
                 "has_header": true
             },
             "import_settings": {
             	"include_filter" : [ ],            
                 "import_columns": [
-                    "PURCHASEORDERID",
+                    "SALESORDERID",
 					"HISTORY.CREATEDBY.EMPLOYEEID",
 					"HISTORY.CREATEDAT",
 					"HISTORY.CHANGEDBY.EMPLOYEEID",
@@ -23,33 +23,49 @@
 					"NETAMOUNT",
 					"TAXAMOUNT",
 					"LIFECYCLESTATUS",
-					"APPROVALSTATUS",
-					"CONFIRMSTATUS",
-					"ORDERINGSTATUS",
-					"INVOICINGSTATUS"
+					"BILLINGSTATUS",
+					"DELIVERYSTATUS"
                 ]
             }
         },
         {
-            "target_table": "PO.Item",
+            "target_table": "SO.Item",
             "source_data": {
                 "data_type": "CSV",
-                "file_name": "purchaseOrderItem.csv",
+                "file_name": "salesOrderItem.csv",
                 "has_header": true
             },
             "import_settings": {
             	"include_filter" : [ ],            
                 "import_columns": [
-                    "HEADER.PURCHASEORDERID",
+                    "HEADER.SALESORDERID",
 					"PRODUCT.PRODUCTID",
 					"NOTEID",
 					"CURRENCY",
 					"GROSSAMOUNT",
 					"NETAMOUNT",
 					"TAXAMOUNT",
+					"ITEMATPSTATUS",
+					"OPITEMPOS",
 					"QUANTITY",
 					"QUANTITYUNIT",
 					"DELIVERYDATE"
+                ]
+            }
+        },
+        {
+            "target_table": "SO.Filter",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "salesOrderFilter.csv",
+                "has_header": true
+            },
+            "import_settings": {
+            	"include_filter" : [ ],            
+                "import_columns": [
+                    "MODEL",
+					"COLNAME",
+					"COLVALUE"
                 ]
             }
         }
