@@ -66,6 +66,15 @@ modules:
       - name: hdi_user_db
         properties:
           TARGET_CONTAINER: '~{user-container-name}'
+
+  - name: xsjs
+    type: nodejs
+    path: xsjs
+    provides:
+     - name: xsjs_api
+       properties:
+          url: ${default-url}
+
 resources:
   - name: SAP_SALES_html5_repo_runtime
     parameters:
