@@ -1,4 +1,21 @@
 {
-  "authenticationMethod": "none",
-  "routes": []
+	"authenticationMethod": "route",
+	"websockets": {
+		"enabled": true
+	},
+	"routes": [{
+		"source": "(.*)(.xsjs)",
+		"destination": "xsjs_api",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "(.*)(.xsodata)",
+		"destination": "xsjs_api",
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "^(.*)$",
+		"target": "$1",
+		"service": "html5-apps-repo-rt",
+		"authenticationType": "xsuaa"
+	}]
 }

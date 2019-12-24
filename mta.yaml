@@ -13,7 +13,13 @@ modules:
       memory: 256M
     requires:
       - name: SAP_SALES_html5_repo_runtime
-      - name: uaa_SAP_SALES
+      - name: SAP_SALES_UAA
+      - name: xsjs_api
+        group: destinations
+        properties:
+          name: xsjs_api
+          url: '~{url}'
+          forwardAuthToken: true
   - name: SAP_SALES_ui_deployer
     type: com.sap.html5.application-content
     path: SAP_SALES_ui_deployer
@@ -40,6 +46,7 @@ modules:
         properties:
           key: hdi-user-service
           service: '~{user-container-name}'
+      - name: SAP_SALES_UAA
   - name: SAP_SALES-srv
     type: nodejs
     path: srv
@@ -59,6 +66,8 @@ modules:
       builder: grunt
       supported-platforms: []
       build-result: dist
+    requires:
+      - name: SAP_SALES_UAA
   - name: user_db
     type: hdb
     path: user_db
@@ -66,15 +75,18 @@ modules:
       - name: hdi_user_db
         properties:
           TARGET_CONTAINER: '~{user-container-name}'
-
   - name: xsjs
     type: nodejs
     path: xsjs
     provides:
-     - name: xsjs_api
-       properties:
-          url: ${default-url}
-
+      - name: xsjs_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: SAP_SALES-db-hdi-container
+      - name: SAP_SALES_UAA
+      - name: SAP_SALES-db
+      - name: sap.hana.democontent.epm.services.images.00
 resources:
   - name: SAP_SALES_html5_repo_runtime
     parameters:
@@ -90,7 +102,7 @@ resources:
     type: com.sap.xs.hdi-container
     properties:
       hdi-container-name: '${service-name}'
-  - name: uaa_SAP_SALES
+  - name: SAP_SALES_UAA
     parameters:
       path: ./xs-security.json
       service-plan: application
@@ -108,3 +120,9 @@ resources:
     properties:
       user-container-name: '${service-name}'
     type: com.sap.xs.hdi-container
+  - name: sap.hana.democontent.epm.services.images.00
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service-name: sap.hana.democontent.epm.services.images.00
+    properties:
+      xshttpdest-images-service-name: '${service-name}'
