@@ -2,7 +2,7 @@
 
 	sap.ui.define([
 		"sap/ui/test/opaQunit",
-		"./pages/web"
+		"./pages/View1"
 	], function (opaTest) {
 		"use strict";
 

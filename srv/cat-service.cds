@@ -1,7 +1,24 @@
-//using { my.bookshop, sap.common } from '../db/data-model';
+using sap_sales.PurchaseOrder.Headers as Headers from '../db/data-model';
+using sap_sales.PurchaseOrder.Items as Items from '../db/data-model';
 
 service CatalogService {
-//  entity Books @readonly as projection on bookshop.Books;
- // entity Authors @readonly as projection on bookshop.Authors;
- // entity Orders @insertonly as projection on bookshop.Orders;
+
+entity POs @(
+		title: '{i18n>poService}',
+		Capabilities: {
+			InsertRestrictions: {Insertable: true},
+			UpdateRestrictions: {Updatable: true},
+			DeleteRestrictions: {Deletable: true}
+		}
+	) as projection on Headers;
+
+entity POItems @(
+		title: '{i18n>poService}',
+		Capabilities: {
+			InsertRestrictions: {Insertable: true},
+			UpdateRestrictions: {Updatable: true},
+			DeleteRestrictions: {Deletable: true}
+		}
+	) as projection on Items;
+
 }

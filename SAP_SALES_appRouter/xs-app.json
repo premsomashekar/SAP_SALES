@@ -4,9 +4,24 @@
 		"enabled": true
 	},
 	"routes": [{
+		"source": "/catalog/(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	},{
+		"source": "/odata/v4/(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/node(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	},{
 		"source": "(.*)(.xsjs)",
 		"destination": "xsjs_api",
-		"csrfProtection": false,
+		"csrfProtection": true,
 		"authenticationType": "xsuaa"
 	}, {
 		"source": "(.*)(.xsodata)",

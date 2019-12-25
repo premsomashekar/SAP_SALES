@@ -20,6 +20,12 @@ modules:
           name: xsjs_api
           url: '~{url}'
           forwardAuthToken: true
+      - name: srv_api
+        group: destinations
+        properties:
+          name: srv_api
+          url: '~{url}'
+          forwardAuthToken: true
   - name: SAP_SALES_ui_deployer
     type: com.sap.html5.application-content
     path: SAP_SALES_ui_deployer
@@ -59,14 +65,6 @@ modules:
           url: '${default-url}'
     requires:
       - name: SAP_SALES-db-hdi-container
-  - name: web
-    type: html5
-    path: web
-    build-parameters:
-      builder: grunt
-      supported-platforms: []
-      build-result: dist
-    requires:
       - name: SAP_SALES_UAA
   - name: user_db
     type: hdb
@@ -87,6 +85,13 @@ modules:
       - name: SAP_SALES_UAA
       - name: SAP_SALES-db
       - name: sap.hana.democontent.epm.services.images.00
+  - name: web
+    type: html5
+    path: web
+    build-parameters:
+      builder: grunt
+      supported-platforms: []
+      build-result: dist
 resources:
   - name: SAP_SALES_html5_repo_runtime
     parameters:
